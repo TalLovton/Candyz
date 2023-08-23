@@ -13,7 +13,9 @@ async function addCandy(req,res){
 
     let tmpCandy = await Candy.findOne({ name });
     if (tmpCandy){
-        return res.redirect("/adminMenu/Candys");    
+        console.log("Candy is already exists");
+        const errorResponse = { text: "Candy is already exists" };
+        return res.redirect(`/adminMenu/Candys?error=${encodeURIComponent(JSON.stringify(errorResponse))}`); 
     }
 
     tmpCandy = new Candy({
@@ -33,7 +35,14 @@ async function updateCandy(req,res){
     const option = req.body.updOption.toLowerCase();
     const optionToString = option.toString();
     const filter = {"name": req.body.CandyName};
-
+    const tmpName = req.body.CandyName;
+    const updateCandy = await Candy.findOne({ "name": tmpName });
+    if(!updateCandy){
+        console.log("No such Candy");
+        const errorResponse = { text: "Candy is not found" };
+        return res.redirect(`/adminMenu/Candys?error=${encodeURIComponent(JSON.stringify(errorResponse))}`);
+    }
+    
     let quantity = "";
     let price = "";
     let photoURL = "";
@@ -67,9 +76,11 @@ async function deleteCandy(req,res){
         const deletedCandy = await Candy.findOneAndDelete({ "name": CandyName });
 
         if (deletedCandy) {
-            console.log("Ice cream deleted:", deletedCandy);
+            console.log("Candy deleted:", deletedCandy);
         } else {
-            console.log("Ice cream not found:", CandyName);
+            console.log("No such Candy");
+            const errorResponse = { text: "Candy is not found" };
+            return res.redirect(`/adminMenu/Candys?error=${encodeURIComponent(JSON.stringify(errorResponse))}`);
         }
 
         res.redirect("/adminMenu/Candys");

@@ -64,7 +64,7 @@
 			<div id="d3-container"></div>
 		</div>
     <script>
-		document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
     $.get("/flavorsPie1", (data1, status) => {
         const svg = d3.select("svg");
         const width = +svg.attr("width");
@@ -93,7 +93,8 @@
 
         arc.append("path")
             .attr("d", path)
-            .attr("fill", d => colorScale(d.data._id));
+            .attr("fill", d => colorScale(d.data._id))
+            .style("opacity", 0.8); // Adjust opacity for a more professional look
 
         const label = d3.arc()
             .outerRadius(radius - 40)
@@ -104,10 +105,13 @@
             .attr("dy", "0.35em")
             .text(d => `${d.data._id} (${Math.round((d.data.count / data1[0][0].count) * 100)}%)`)
             .style("text-anchor", "middle")
-            .style("font-family", "sans-serif")
-            .style("font-size", "12px");
+            .style("font-family", "Arial, sans-serif") // Use a common font for a professional look
+            .style("font-size", "12px")
+            .style("font-weight", "bold") // Add font weight for emphasis
+            .style("fill", "#333"); // Customize label color for readability
     });
 });
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	let dataGraph2 = [];

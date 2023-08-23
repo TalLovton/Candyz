@@ -66,6 +66,8 @@
                 </tr>
               </table>
             </div>
+            <div id="errorMessages" class="alert" style="display: none; color: red; font-size: x-large; margin-top: 5px; ">
+                alert text</div>
     </section>
     <section class="sign" id="sign">
         <h1 class="heading">Add Candy</h1>
@@ -73,23 +75,23 @@
             <div class="box-container">
                 <div class="box">
                     <div class="inputBox">
-                        <div id="nameAlert" class="alert" style="display: none;">Please enter a name.</div>
                         <span>name</span>
-                        <input type="text" name="name"  placeholder="enter name" />
+                        <input type="text" required name="name"  placeholder="enter name" />
+                        
                     </div>
 
                     <div class="inputBox">
                         <span>Flavor</span>
-                        <input type="text" name="flavor"  placeholder="enter flavor name" />
+                        <input type="text" required name="flavor"  placeholder="enter flavor name" />
                     </div>
 
                     <div class="inputBox">
                         <span>Quantity In KG</span>
-                        <input type="number" name="quantity" placeholder="enter quantity" />
+                        <input type="number" required name="quantity" placeholder="enter quantity" />
                     </div>
                     <div class="inputBox">
                         <span>Price In Dollars Per KG</span>
-                        <input type="number" id="price" name="price" placeholder="enter price" />
+                        <input type="number" required id="price" name="price" placeholder="enter price" />
                     </div>
                     <div class="inputBox">
                         <span>Photo URL</span>
@@ -142,18 +144,18 @@
             <div class="box-container">
                 <div class="box">
                 <div class="inputBox">
-                    <span>Ice Cream Name To Update</span>
-                    <input type="text" name="CandyName" placeholder="enter name" />
+                    <span>Candy Name To Update</span>
+                    <input type="text" required name="CandyName" placeholder="enter name" />
                 </div>
                 <div class="inputBox">
                     <span>Update -</span>
-                    <select name="updOption" id="UpdateOptions">
+                    <select  name="updOption" id="UpdateOptions">
                         <option value="Choose One">Choose One</option>
                         <option value="quantity">quantity</option>
                         <option value="price">price</option>
                         <option value="url">url</option>
                     </select>
-                    <input type="text" name="values" placeholder="Enter new value" />
+                    <input type="text" required name="values" placeholder="Enter new value" />
                 </div>
             </form>
             <input type="submit" value="Update" class="btn"/>        
@@ -165,8 +167,8 @@
             <div class="box-container">
                 <div class="box">
                 <div class="inputBox">
-                    <span>Ice Cream Name<span>
-                    <input type="text" name="CandyName" placeholder="enter name" />
+                    <span>Candy Name<span>
+                    <input type="text" required name="CandyName" placeholder="enter name" />
                 </div>
                 </form>
             <input type="submit" value="Delete" class="btn"/>        
@@ -188,20 +190,30 @@
 	});
     </script>
     <script>
-        document.querySelector('form').addEventListener('submit', function(event) {
-            const nameInput = document.querySelector('input[name="name"]');
-            const nameAlert = document.getElementById('nameAlert');
-    
-            if (!nameInput.value) {
-                nameAlert.style.display = 'block';
-                event.preventDefault(); // Prevent the form from submitting
+        //------------------Fetching data from DB about exist candys------------------ 
+        document.addEventListener("DOMContentLoaded", () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const error = urlParams.get('error');
+            const errorMessages = document.getElementById('errorMessages');
+            
+            if (error && error.trim() !== '') {
+                const errorMessage = JSON.parse(decodeURIComponent(error)).text;
+                errorMessages.textContent = errorMessage;
+                errorMessages.style.display = 'block';
+                setTimeout(() => {
+                    errorMessages.style.display = 'none';
+                }, 2500);
             } else {
-                nameAlert.style.display = 'none';
+                if (!window.location.search.includes('error=')) {
+                    errorMessages.style.display = 'none';
+                }
             }
         });
     </script>
-    <!-- footer -->
 
+
+    <!-- footer -->
+        
 		<section class="footer">
 			<div class="icons-container">
 				<div class="icons">

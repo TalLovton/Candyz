@@ -11,7 +11,8 @@ async function addShops(req,res){
     let tmpShop = await Shop.findOne({address});
     if (tmpShop){
         console.log("Candys shop already in data")
-        res.redirect("/adminMenu/Shops");
+        const errorResponse = { text: "Candys shop already exist" };
+        return res.redirect(`/adminMenu/Shops?error=${encodeURIComponent(JSON.stringify(errorResponse))}`);
     }else{
         tmpShop = new Shop({
             address,
@@ -27,6 +28,12 @@ async function addShops(req,res){
 async function updateShops(req,res){
     const address = req.body.address;
     const url = req.body.url;
+    const tmpShop = await Shop.findOne({"address":address});
+    if (!tmpShop){
+        console.log("Candys shop is not exist")
+        const errorResponse = { text: "Shop not found" };
+        return res.redirect(`/adminMenu/Shops?error=${encodeURIComponent(JSON.stringify(errorResponse))}`);
+    }
     await Shop.findOneAndUpdate({"address":address},{$set:{"photoURL": url}},{new:true},(err,doc)=>{
         res.redirect("/adminMenu/Shops");
     });
@@ -34,9 +41,20 @@ async function updateShops(req,res){
 
 async function deleteShops(req,res){
     const address = req.body.address.trim();
-    console.log(address);
-    await Shop.findOneAndDelete({"address": address});
-    res.redirect("/adminMenu/Shops");
+    try {
+        const deletedShop = await Shop.findOneAndDelete({ address });
+        if (deletedShop) {
+            console.log('Shop deleted:', deletedShop);
+            res.redirect('/adminMenu/Shops');
+        } else {
+            console.log('Shop not found');
+            const errorResponse = { text: "Shop not found" };
+            return res.redirect(`/adminMenu/Shops?error=${encodeURIComponent(JSON.stringify(errorResponse))}`);
+        }
+    } catch (error) {
+        console.error('Error deleting shop:', error);
+        res.status(500).send('Error deleting shop');
+    }
 }
 
 async function showShops(req,res){
