@@ -21,7 +21,8 @@ async function setNewUsser(req,res){
         const errorResponse = { text: "User already exists" };
         return res.redirect(`/signup?error=${encodeURIComponent(JSON.stringify(errorResponse))}`);
     }
-    if (/^[a-zA-Z\s]*[a-zA-Z][a-zA-Z\s]*$/.test(fullname) && fullname.includes(" ") && email.includes("@") && email.includes(".") && password.length >= 6 && password.length <= 12 ){
+    if (/^[a-zA-Z\s]*[a-zA-Z][a-zA-Z\s]*$/.test(fullname) && fullname.includes(" ") && email.includes("@") && email.includes(".") && password.length >= 6 
+    && password.length <= 12 && !(password.length === 0) ){
         const hasdPsw = await bcrypt.hash(password, 12);
         user = new User({
             fullname,
@@ -35,36 +36,17 @@ async function setNewUsser(req,res){
         }
         await user.save();
         console.log("user was sucssefully created");
-        const date = new Date(); // Set the desired expiration date
-        date.setDate(date.getDate() + 30); // For example, set the cookie to expire in 30 days
+        const date = new Date(); 
+        date.setDate(date.getDate() + 30); // set the cookie to expire in 30 days
         res.cookie("myCookie", "", { expires: new Date(date) }); 
         res.redirect("/signin");
     }else{
-        if (!fullname.includes(" ")) {
-            errorsArr.push("Last name required");
-            console.log("Last name required");
-        }
-        if (!/^[a-zA-Z\s]*[a-zA-Z][a-zA-Z\s]*$/.test(fullname)) {
-            errorsArr.push("Last name required");
-            console.log("Alphabet letter required");
-        }
-        if (!email.includes("@") || !email.includes(".")) {
-            errorsArr.push("Invalid Email");
-            console.log("Invalid Email");
-        }
-        if (password.value.length === 0 || password.length < 6 || password.length > 12) {
-            errorsArr.push("Password invalid");
-            console.log("Password invalid");
-        }
         console.log("User was not created");
 		setTimeout(() => {
             return res.redirect("/signup");
         }, 2000);
-        //res.render("signup", { errorsArr });
+       
     }
     
 }
-
-
-
 module.exports = {getSignUpPage,setNewUsser};
