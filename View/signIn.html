@@ -57,30 +57,79 @@
 				</div>
 				<input type="submit" value="sign in" class="btn" />
 			</form>
+
+			<script>
+				//------------------Fetching data from DB about exist users 
+				document.addEventListener("DOMContentLoaded", () => {
+					const emailInput = document.getElementById('emailInput');
+					const passwordInput = document.getElementById('passwordInput');
+					const urlParams = new URLSearchParams(window.location.search);
+					const error = urlParams.get('error');
+					const errorMessages = document.getElementById('errorMessages');
+					if (error ) {
+						const errorMessage = JSON.parse(decodeURIComponent(error)).text;
+						errorMessages.textContent = errorMessage;
+						errorMessages.style.display = 'block';
+						event.preventDefault();
+
+						setTimeout(() => {
+							errorMessages.style.display = 'none';
+						}, 2000);
+					} else {
+						if (!window.location.search.includes('error=')) {
+							errorMessages.style.display = 'none';
+							event.preventDefault();
+
+						}
+					}
+				});
+			</script>
 				<script>
+					//------------------- missing email or pw alerts------------------------
 				document.getElementById('signinForm').addEventListener('submit', async function(event) {
 					const emailInput = document.getElementById('emailInput');
 					const passwordInput = document.getElementById('passwordInput');
 					const emailAlert = document.getElementById('emailAlert');
 					const passwordAlert = document.getElementById('passwordAlert'); 
 		
-					emailAlert.style.display = 'none';
-					passwordAlert.style.display = 'none';
-		
-					if (!emailInput.value || !passwordInput.value) {
-						if (!emailInput.value) {
-							emailAlert.style.display = 'block';
-						}
-						if (!passwordInput.value) {
+					//user validtion check
+					if (!emailInput.value || !passwordInput.value && !(emailInput.value && passwordInput.value)) {
+						if(!emailInput.value && !passwordInput.value){ // if input fields are empty.
 							passwordAlert.style.display = 'block';
+							passwordAlert.textContent = 'Please enter Password.'
+							emailAlert.style.display = 'block';
+							emailAlert.textContent = 'Please enter Email.'
+							event.preventDefault();
 						}
-						event.preventDefault(); // Prevent the form from submitting
-					} else {
-						// Continue with form submission
-					}
+						else{
+							if (!emailInput.value) { //if email input field is empty
+								emailAlert.style.display = 'block';
+								emailAlert.textContent = 'Please enter Email.'
+								event.preventDefault();
+							}
+							else{
+								emailAlert.style.display = 'none';
+							}
+							if (!passwordInput.value && emailInput.value) { //if password field is empty but email isnt
+								passwordAlert.style.display = 'block';
+								passwordAlert.textContent = 'Please enter Password.'
+								event.preventDefault();
+							}
+						}
+					} 
+					else if(passwordInput.value.length < 6 || passwordInput.value.length > 12){ // if the password is not valid.
+									passwordAlert.style.display = 'block';
+									passwordAlert.textContent = 'Please enter a valid password (6-12 characters).'
+									event.preventDefault();
+								}
+							else{
+								passwordAlert.style.display = 'none';
+							}
+
 				});
 			</script>
 				<script>
+					//---------------Fetching data from DB about exist users------------------------
 					document.addEventListener("DOMContentLoaded", () => {
 						const urlParams = new URLSearchParams(window.location.search);
 						const error = urlParams.get('error');
@@ -89,9 +138,10 @@
 							const errorMessage = JSON.parse(decodeURIComponent(error)).text;
 							errorMessages.textContent = errorMessage;
 							errorMessages.style.display = 'block';
+							event.preventDefault();
 							setTimeout(() => {
-								errorMessages.style.display = 'none';
-							}, 2000);
+									errorMessages.style.display = 'none';
+								}, 2000);
 						} else {
 							if (!window.location.search.includes('error=')) {
 								errorMessages.style.display = 'none';
@@ -99,11 +149,9 @@
 						}
 					});
 				</script>
+				
 		</section>
 
-		
-		
-	
 		<!-- footer -->
 
 		<section class="footer">

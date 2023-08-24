@@ -8,6 +8,8 @@ function getSignInPage(req, res) {
 
 async function checkUser(req,res){
     const {email,password} = req.body;
+    console.log(email)
+    console.log(password)
     const user = await User.findOne({email});
     if (!user){
         console.log("No such user");
@@ -17,8 +19,9 @@ async function checkUser(req,res){
     const isMatch = await bcrypt.compare(password,user.password);
     if (!isMatch){
         console.log("Wrong password...");
-        return res.redirect("/signin");
+        return res.redirect('/signin');
     }
+   
     req.session.selected = "nothing yet";
     req.session.isAuth = true;
     req.session.fullname = user.fullname;
@@ -28,9 +31,9 @@ async function checkUser(req,res){
         req.session.isAdmin = true;
         res.redirect("/adminMenu");
     }else{
-        
         res.redirect("/userMenu");
     }
+    
 }
 
 module.exports = {getSignInPage,checkUser};
