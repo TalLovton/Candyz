@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Home</title>
+		<!-- font awesome -->
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+		/>
+		<!-- lightgallery -->
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery-js/1.4.0/css/lightgallery.min.css"
+		/>
+		<link
+		rel="stylesheet"
+		href="https://unpkg.com/swiper/swiper-bundle.min.css"
+	  	/>
+		<!-- custom css -->
+		<script src="https://kit.fontawesome.com/51237677f5.js" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="css/style.css" />
+		<!----Canvas CSS-->
+		<style>
+			canvas {
+			position: absolute;
+			}
+			button {
+			margin: 5px 0px;
+			color: white;
+			border: 0px;
+			border-bottom: 3px solid #356f7d;
+			background-color: #4795a7;
+			padding: 5px 10px;
+			cursor: pointer;
+			position: relative;
+			transition: 0.2s ease;
+			top: 0px;
+			}
+			button:active {
+			top: 3px;
+			border-bottom: 0px solid #356f7d;
+			transition: 0.2s ease;
+			}
+		</style>
+	</head>
+	<body>
+		<section class="header">
+			<a href="index.html" class="logo">
+				<img src="static/theLogo.png" alt="Candyz Logo">
+			</a>
+			
+			<nav class="navbar">
+				<a href="#about">About Us</a>
+				<a href="#contact">Contact Us</a>
+				<a href="signUp.html">Sign Up</a>
+				<a href="signIn.html">Sign In</a>
+				<a href="chat.html">Chat</a>
+				<a href="googleMapsUser.html">Our Shops</a>
+			</nav>
+
+			<div id="menu-btn" class="fas fa-bars"></div>
+		</section>
+
+
+		<!-- share -->
+		<div class="share-btn-container">
+			<!-- <a href="#" id="facebook-btn" class="facebook-btn">
+				<i class="fab fa-facebook"></i>
+			</a> -->
+			<a href="#" id="twitter-btn" class="twitter-btn">
+				<i class="fab fa-twitter"></i>
+			</a>
+			<a href="#" id="whatsapp-btn" class="whatsapp-btn">
+				<i class="fab fa-whatsapp"></i>
+			</a>
+		</div>
+
+
+		<!-- about us -->
+		<!----Weather Widget, the Web Service-->
+		<a class="weatherwidget-io" href="https://forecast7.com/en/31d9734d79/rishon-letsiyon/" data-label_1="RISHON LETSIYON" data-label_2="WEATHER" 
+		data-theme="blue-mountains" data-basecolor="#feeff9" data-shadow="" data-textcolor="#270059" data-highcolor="#020202" data-lowcolor="#9cadff"
+		 data-suncolor="#f7a933" data-cloudcolor="#9f5bff" data-cloudfill="" data-raincolor="#0079a6" >RISHON LETSIYON WEATHER</a>
+		 <script>
+		 !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';
+		 fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+		 </script>
+
+		<section class="about" id="about">
+			<h1 class="heading">about us</h1>
+			<div class="row">
+				<div class="image">
+					<video width="320" height="240" autoplay controls re  style="align-items: center;">
+						<source src="static/video1.mp4" type="video/mp4">
+						  Your browser does not support the video tag.
+					</video>		
+				</div>
+				<div class="content">
+					<h3>Sweet Delights for Every Taste</h3>
+					<p>
+						Welcome to Candyz</br>
+						your one-stop destination for all things sweet and delightful !!</br>
+					</p>
+					<p>
+						At Candyz, we're passionate about bringing the finest assortment of candies to shops, stores, and restaurants all over.
+						Our mission is to provide a wide array of sugary treats that cater to every palate, ensuring that your customers experience pure bliss with each bite.
+						Step into the world of Candyz and embark on a journey of sugary delight. Join us in spreading happiness, one candy at a time.
+						<b>Indulge. Explore. Enjoy. Welcome to Candyz, where every taste is a celebration of sweetness.</b>
+					</p>
+					<div id="stage" style="align-items: center; align-self: center; justify-self: center;"></div>
+				</div>
+			</div>
+			 
+		</section>
+
+
+		<!-- about us -->
+
+		<!-- contact us -->
+
+		<section class="contact" id="contact">
+			<h1 class="heading">Contact Us</h1>
+			<form action="https://formspree.io/f/mleyjnpy" method="POST">
+				<input type="text" name="name" id="name" placeholder="Enter your name" >
+				<input type="email" name="email" id="emailForm" placeholder="Enter your email" required>
+				<input type="text" name="phone" id="phone" placeholder="Enter your Phone no." >
+				<textarea id="message" name="message" rows="4" placeholder="Enter your message"></textarea>
+				<button type="Submit" value="send">Send</button>
+			</form>
+			<script>
+				window.onbeforeunload = () => {
+					for(const form of document.getElementsByTagName('form')) {
+						form.reset();
+					}
+				}
+			</script>
+		</section>
+
+		<!-- footer -->
+
+		<section class="footer">
+			<div class="icons-container">
+				<div class="icons">
+					<i class="fas fa-map"></i>
+					<h3>address</h3>
+						<p>
+							Elie Wiesel St 2, Rishon LeTsiyon,  Israel
+						</p>
+				</div>
+
+				<div class="icons">
+					<i class="fas fa-phone"></i>
+					<h3>phone</h3>
+					<p>03-333-3333</p>
+					<p>07-777-7777</p>
+				</div>
+
+				<div class="icons">
+					<i class="fas fa-clock"></i>
+					<h3>opening hours</h3>
+					<p>
+						Sunday - Thursday : 9:00 - 22:00 <br />
+						Friday: 9:00 - 11:00
+					</p>
+				</div>
+			</div>
+
+		</section>
+
+		<!-- footer -->
+
+		<!-- lightgallery -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery-js/1.4.0/js/lightgallery.min.js"></script>
+
+		<!-- custom js -->
+		<script src="js/script.js"></script>
+
+	
+		<script>
+			let postUrl = encodeURI(document.location.href);
+			let postTitle = encodeURI("Hey, Check out this awesome new Candyz shop: ");
+			// const facebookBtn = document.querySelector(".facebook-btn");
+			const twitterBtn = document.querySelector(".twitter-btn");
+			const whatsappBtn = document.querySelector(".whatsapp-btn");
+			
+			// facebookBtn.setAttribute("href",`https://www.facebook.com/sharer/sharer.php?u=${postUrl}`)
+			twitterBtn.setAttribute("href",`https://twitter.com/share?url=${postUrl}&text=${postTitle}`)
+			whatsappBtn.setAttribute("href",`https://api.whatsapp.com/send?text=${postTitle}${postUrl}`)
+		</script>
+		
+	</body>
+</html>
