@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Ice Creams Admin Page</title>
+    <!-- font awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+
+    <style>
+        table, th, td {
+          border:1px solid black;
+          font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+          font-size: large;
+        }
+    </style>
+        
+
+    <!-- swiper -->
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/swiper@7/swiper-bundle.min.css"
+    />
+    <!-- lightgallery -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery-js/1.4.0/css/lightgallery.min.css"
+    />
+    <!-- custom css -->
+	<script src="https://kit.fontawesome.com/51237677f5.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/style.css" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    <script src="js/script.js"></script>
+</head>
+<body>
+    <section class="header">
+        <a href="#" class="logo">
+			<i class="fa-solid fa-candy-cane fa-flip-horizontal" style="color: #ffffff;"></i> Candyz
+        </a>
+
+        <nav class="navbar">
+            <a href="adminMenu.html">Menu</a>
+            <a href="adminCandysMenu.html">Candyz Menu</a>
+        </nav>
+
+        <div id="menu-btn" class="fas fa-bars"></div>
+    </section>
+    <section>
+        <br>
+        <br>
+        <div id="Candys2" class="box-container" style="text-align: center;">
+            <br>
+            <h1 class="heading" id="SearchParam"></h1>
+            <br>
+            <table id="CandysTable2" style="width:100%; text-align: center;">
+                <tr>
+                    <th>Name</th>
+                    <th>Flavor</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Photo</th>
+                    <th>Times Ordered</th>
+                </tr>
+              </table>
+            </div>
+    </div>                        
+</div>
+    </section>
+	<!-- footer -->
+
+	<section class="footer">
+		<div class="icons-container">
+			<div class="icons">
+				<i class="fas fa-map"></i>
+				<h3>address</h3>
+					<p>
+						Elie Wiesel St 2, Rishon LeTsiyon,  Israel
+					</p>
+			</div>
+
+			<div class="icons">
+				<i class="fas fa-phone"></i>
+				<h3>phone</h3>
+				<p>03-333-3333</p>
+				<p>07-777-7777</p>
+			</div>
+
+			<div class="icons">
+				<i class="fas fa-clock"></i>
+				<h3>opening hours</h3>
+				<p>
+					Sunday - Thursday : 9:00 - 22:00 <br />
+					Friday: 9:00 - 11:00
+				</p>
+			</div>
+		</div>
+
+	</section>
+
+	<!-- footer -->
+    <script>
+	$.get('/adminMenu/showCandysList',function(data,status){
+		let count = 0;
+		let index = 0;
+		str = window.location.search;
+		if (typeof str === 'string'){
+			var firstSplit = str.toString().split("?");
+			var params = firstSplit.toString().split("&");
+			for (let i=0; i<params.length; i++){
+				var arr = params[i].toString().split("=");
+				var result = arr[1];
+				if (result != "")
+					index = i;
+			}
+			 if (index === 0){
+				var arr = params[0].toString().split("=");
+				var value = arr[1];
+				if (value === "All"){
+					$("#SearchParam").text("All Candies");
+					for (let i=0; i<data.length; i++){
+						var row = "<tr>"
+						+"<td>" + data[i].name + "</td>"
+						+"<td>" + data[i].flavor + "</td>"
+						+"<td>" + data[i].quantity + "</td>"
+						+"<td>" + data[i].price +"$</td>"
+						+"<td><img style='width:130px'; src='" + data[i].photoURL + "';></td>"
+						+"<td>" + data[i].countOrdered + "</td>" +
+						"</tr>";
+						$("#CandysTable2").append(row);
+					}
+				}
+				if (value === "Most+Purchased+"){
+					$("#SearchParam").text("Sort By Most Purchased");
+					$.get('/adminMenu/showMostWantedCandy',function(data,status){
+						for (let i=0; i<data.length; i++){
+							var row = "<tr>"
+							+"<td>" + data[i].name + "</td>"
+							+"<td>" + data[i].flavor + "</td>"
+							+"<td>" + data[i].quantity + "</td>"
+							+"<td>" + data[i].price +"$</td>"
+							+"<td><img style='width:130px'; src='" + data[i].photoURL + "';></td>"
+							+"<td>" + data[i].countOrdered + "</td>" +
+							"</tr>";
+							$("#CandysTable2").append(row);
+						}
+					});
+				}
+				if (value === "Max+Price"){
+					$("#SearchParam").text("Sort By Max Price");
+					$.get('/adminMenu/showMaxPriceCandy',function(data,status){
+						for (let i=0; i<data.length; i++){
+							var row = "<tr>"
+							+"<td>" + data[i].name + "</td>"
+							+"<td>" + data[i].flavor + "</td>"
+							+"<td>" + data[i].quantity + "</td>"
+							+"<td>" + data[i].price +"$</td>"
+							+"<td><img style='width:130px'; src='" + data[i].photoURL + "';></td>"
+							+"<td>" + data[i].countOrdered + "</td>" +
+							"</tr>";
+							$("#CandysTable2").append(row);
+						}
+					});
+				}
+				if (value === "Min+Price"){
+					$("#SearchParam").text("Sort By Min Price");
+					$.get('/adminMenu/showMinPriceCandy',function(data,status){
+						for (let i=0; i<data.length; i++){
+							var row = "<tr>"
+							+"<td>" + data[i].name + "</td>"
+							+"<td>" + data[i].flavor + "</td>"
+							+"<td>" + data[i].quantity + "</td>"
+							+"<td>" + data[i].price +"$</td>"
+							+"<td><img style='width:130px'; src='" + data[i].photoURL + "';></td>"
+							+"<td>" + data[i].countOrdered + "</td>" +
+							"</tr>";
+							$("#CandysTable2").append(row);
+						}
+					});
+				}	
+			 }
+			 else{
+				var arr = params[index].toString().split("=");
+				var param = arr[0];
+				var result = arr[1];
+				$("#SearchParam").text("Results for Specific " + param);
+				for (let i=0; i< data.length; i++){
+					if (param === "name"){
+						if (data[i].name === result){
+							var row = "<tr>"
+							+"<td>" + data[i].name + "</td>"
+							+"<td>" + data[i].flavor + "</td>"
+							+"<td>" + data[i].quantity + "</td>"
+							+"<td>" + data[i].price +"$</td>" 
+							+"<td><img style='width:130px'; src='" + data[i].photoURL + "';></td>"
+							+"<td>" + data[i].countOrdered + "</td>" +
+							"</tr>";
+							$("#CandysTable2").append(row);
+						}
+						count++;
+					}
+					else if (param === "flavor"){
+						if (data[i].flavor === result){
+							var row = "<tr>"
+							+"<td>" + data[i].name + "</td>"
+							+"<td>" + data[i].flavor + "</td>"
+							+"<td>" + data[i].quantity + "</td>"
+							+"<td>" + data[i].price +"$</td>" 
+							+"<td><img style='width:130px'; src='" + data[i].photoURL + "';></td>"
+							+"<td>" + data[i].countOrdered + "</td>" +
+							"</tr>";
+							$("#CandysTable2").append(row);
+						}
+						count++;
+					}
+					else if (param === "quantity"){
+						if (data[i].quantity == result){
+							var row = "<tr>"
+							+"<td>" + data[i].name + "</td>"
+							+"<td>" + data[i].flavor + "</td>"
+							+"<td>" + data[i].quantity + "</td>"
+							+"<td>" + data[i].price +"$</td>" 
+							+"<td><img style='width:130px'; src='" + data[i].photoURL + "';></td>"
+							+"<td>" + data[i].countOrdered + "</td>" +
+							"</tr>";
+							$("#CandysTable2").append(row);
+						}
+						count++;
+					}
+					else if (param === "price"){
+						if (data[i].price == result){
+							var row = "<tr>"
+							+"<td>" + data[i].name + "</td>"
+							+"<td>" + data[i].flavor + "</td>"
+							+"<td>" + data[i].quantity + "</td>"
+							+"<td>" + data[i].price +"$</td>" 
+							+"<td><img style='width:130px'; src='" + data[i].photoURL + "';></td>"
+							+"<td>" + data[i].countOrdered + "</td>" +
+							"</tr>";
+							$("#CandysTable2").append(row);
+						}
+						count++;
+					}
+				}
+
+				if (count === 0){
+					var row = "<tr><td>Couldn't find anything</td></tr>"
+					$("#CandysTable2").append(row);
+				}
+			}
+		
+		}
+	}); 
+    </script>
+</body>
+</html>
