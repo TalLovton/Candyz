@@ -19,7 +19,8 @@ async function checkUser(req,res){
     const isMatch = await bcrypt.compare(password,user.password);
     if (!isMatch){
         console.log("Wrong password...");
-        return res.redirect('/signin');
+        const errorResponse = { text: "Incorrect password" };
+        return res.redirect(`/signin?error=${encodeURIComponent(JSON.stringify(errorResponse))}`);
     }
    
     req.session.selected = "nothing yet";
