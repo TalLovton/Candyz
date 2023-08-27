@@ -20,12 +20,26 @@
 		<!-- custom css -->
 		<script src="https://kit.fontawesome.com/51237677f5.js" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="css/style.css" />
+
+		<style>
+			body {
+				margin: 0;
+				padding: 0;
+				font-family: Arial, sans-serif;
+				background-image: url('static/backgroundPicture.png');
+				background-size: cover;
+				background-position: center;
+			}
+	
+		</style>
 	</head>
 	<body>
+
 		<section class="header">
 			<a href="index.html" class="logo">
-				<i class="fa-solid fa-candy-cane fa-flip-horizontal" style="color: #ffffff;"></i> Candyz
+				<img src="static/theLogo.png" alt="Candyz Logo">
 			</a>
+			
 
 			<nav class="navbar">
 				<a href="index.html">home</a>
@@ -70,16 +84,12 @@
 						const errorMessage = JSON.parse(decodeURIComponent(error)).text;
 						errorMessages.textContent = errorMessage;
 						errorMessages.style.display = 'block';
-						event.preventDefault();
-
 						setTimeout(() => {
 							errorMessages.style.display = 'none';
 						}, 2000);
 					} else {
 						if (!window.location.search.includes('error=')) {
 							errorMessages.style.display = 'none';
-							event.preventDefault();
-
 						}
 					}
 				});
@@ -92,66 +102,24 @@
 					const emailAlert = document.getElementById('emailAlert');
 					const passwordAlert = document.getElementById('passwordAlert'); 
 		
-					//user validtion check
+				
+		
 					if (!emailInput.value || !passwordInput.value && !(emailInput.value && passwordInput.value)) {
-						if(!emailInput.value && !passwordInput.value){ // if input fields are empty.
-							passwordAlert.style.display = 'block';
-							passwordAlert.textContent = 'Please enter Password.'
+						if (!emailInput.value) {
 							emailAlert.style.display = 'block';
 							emailAlert.textContent = 'Please enter Email.'
-							event.preventDefault();
 						}
-						else{
-							if (!emailInput.value) { //if email input field is empty
-								emailAlert.style.display = 'block';
-								emailAlert.textContent = 'Please enter Email.'
-								event.preventDefault();
-							}
-							else{
-								emailAlert.style.display = 'none';
-							}
-							if (!passwordInput.value && emailInput.value) { //if password field is empty but email isnt
-								passwordAlert.style.display = 'block';
-								passwordAlert.textContent = 'Please enter Password.'
-								event.preventDefault();
-							}
+						if (!passwordInput.value && emailInput.value) {
+							passwordAlert.style.display = 'block';
+							passwordAlert.textContent = 'Please enter PW.'
 						}
 					} 
-					else if(passwordInput.value.length < 6 || passwordInput.value.length > 12){ // if the password is not valid.
-									passwordAlert.style.display = 'block';
-									passwordAlert.textContent = 'Please enter a valid password (6-12 characters).'
-									event.preventDefault();
-								}
-							else{
-								passwordAlert.style.display = 'none';
-							}
 
 				});
 			</script>
-				<script>
-					//---------------Fetching data from DB about exist users------------------------
-					document.addEventListener("DOMContentLoaded", () => {
-						const urlParams = new URLSearchParams(window.location.search);
-						const error = urlParams.get('error');
-						const errorMessages = document.getElementById('errorMessages');
-						if (error) {
-							const errorMessage = JSON.parse(decodeURIComponent(error)).text;
-							errorMessages.textContent = errorMessage;
-							errorMessages.style.display = 'block';
-							event.preventDefault();
-							setTimeout(() => {
-									errorMessages.style.display = 'none';
-								}, 2000);
-						} else {
-							if (!window.location.search.includes('error=')) {
-								errorMessages.style.display = 'none';
-							}
-						}
-					});
-				</script>
 				
 		</section>
-
+		
 		<!-- footer -->
 
 		<section class="footer">

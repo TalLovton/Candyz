@@ -1,5 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Finlandica&family=Playfair+Display:wght@500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Dosis:wght@200;300;400;500;600&display=swap");
+
+
 .card {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
@@ -172,7 +174,7 @@ section {
 .header .navbar a:hover {
 	padding-bottom: 0.5rem;
 	color: var(--main-color);
-	border-bottom: 0.1rem solid var(--main-color);
+	border-bottom: 0.1rem solid #facef6;
 }
 
 
@@ -180,7 +182,7 @@ section {
 #menu-btn {
 	font-size: 2.5rem;
 	cursor: pointer;
-	color: var(--black);
+	color: #facef6;
 	display: none;
 }
 
@@ -201,7 +203,7 @@ section {
 	position: fixed;
 	top: 50%;
 	transform: translateY(-50%);
-	z-index: 1;
+	z-index: 1; 
 }
 
 .share-btn-container a i{
@@ -334,7 +336,7 @@ section {
     height: 100%;
     object-fit: cover;
     z-index: -1;
-    opacity: 0.5; /* Adjust video opacity if desired */
+    opacity: 0.5;
 }
         .contact form {
             background: white;
@@ -370,16 +372,28 @@ section {
         }
 
 
+		
 
 /* footer */
 
 .footer {
-	background:rgb(255, 208, 121);;
+	background:rgb(255, 187, 255);
+	padding: 0px;
+
 }
+
 .sign form {
 	padding: 2rem;
-	background: var(--primary-color);
+	background: #d3bdec;
 	box-shadow: var(--box-shadow);
+
+}
+
+.sign {
+	width: 100%;
+	margin: 15rem 0;
+	z-index: -1;
+
 }
 
 .sign form .box-container {
@@ -415,7 +429,7 @@ section {
 
 .sign form .box-container .box .inputBox input:focus::placeholder,
 .sign form .box-container .box .inputBox textarea:focus::placeholder {
-	color: #ccc;
+	color: #b6adf9;;
 }
 
 .sign form .box-container .box .inputBox textarea {
@@ -475,8 +489,8 @@ section {
 
 .footer {
 	background:rgb(21 0 80);
-	
 	text-align: center;
+	
 }
 
 .footer .icons-container {
@@ -625,6 +639,8 @@ section {
 	.share-btn-container a{
 		margin: 0 32px;
 	}
+
+
 
 
 }
