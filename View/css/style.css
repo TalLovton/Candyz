@@ -201,6 +201,7 @@ section {
 	position: fixed;
 	top: 50%;
 	transform: translateY(-50%);
+	z-index: 1;
 }
 
 .share-btn-container a i{
