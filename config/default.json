@@ -1,5 +1,5 @@
 {
-    "mongoURI": "mongodb+srv://Jonny:Jonny1234567@talcluster.idwerjh.mongodb.net/"
+    "mongoURI": "mongodb://localhost:27017/Sessions"
 }
 
 
