@@ -41,8 +41,11 @@
             <i class="fa-solid fa-candy-cane fa-flip-horizontal" style="color: #ffffff;"></i> Candyz
         </a>
 
-        <nav class="navbar">
-            <a id="cancel" href="/cancelOrder">Cancel Order</a>            
+        <nav class="navbar">  
+            <a id="add" href="/reservationSelect?options=All&name=&flavor=&quantity=&price=">Add Candy</a>
+            <a id="cancel" href="/cancelOrder">Cancel Order</a>
+           
+                        
         </nav>
 
         <div id="menu-btn" class="fas fa-bars"></div>
@@ -50,8 +53,8 @@
     <section id="sec2" style="text-align: center; align-items: center;">
     </section>
     <section style="text-align: center;">
-        <form action="/finishOrder" method="post">
-            <button style="visibility: hidden; background-color: aquamarine; border-radius: 5px; border-color:white;	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); font-size: x-large;" id="btnFinishOrder">Order</button>
+        <form action="/orderDetails" method="get">
+            <button style="visibility: hidden; background-color: aquamarine; border-radius: 5px; border-color:white;	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); font-size: x-large;" id="btnFinishOrder">Place your order</button>
         </form>
     </section>
     <!-- footer -->
@@ -88,10 +91,11 @@
 		<!-- footer -->
         <script>
             let newData;
-            let arr = $.get("/selectedIceCreams", function(data, status) {
+            let arr = $.get("/selectedCandys", function(data, status) {
                 newData = data;
                 for (let i = 0; i < data.length; i++) {       
                     if (newData.length != 0){
+                        
                         const cardHtml = `
                             <br>
                             <div class='card1'>
@@ -111,6 +115,7 @@
                 if(newData.length === 0){
                     $("#sec2").append("<br><div class='card1'><h1><b>You Did Not Select Anything Yet</b></h1></div></div><br>");
                     $("#cancel").text("Start Order");
+                    
                 }
                 data = newData;
                
@@ -118,19 +123,30 @@
             });
 
             $("#sec2").on('click', '.delete-button', function() {
-                const nameToDelete = $(this).data('name'); // Use a unique identifier (e.g., name)
-                
-                // Find the index of the item with the specified name in newData
-                const index = newData.findIndex(item => item.name === nameToDelete);
-                newData.splice(index, 1);
-                $(this).closest('.card1').remove();
-                
+                const indexToDelete = $(this).data('index');
+                 const nameToDelete = newData[indexToDelete].name;
+                const decodedNameToDelete = decodeURIComponent(nameToDelete);
+                    const index = newData.findIndex(item => item.name === decodedNameToDelete);
+                    newData.splice(index, 1);
+                    $(this).closest('.card1').remove();
+                    $.post('/removeFromCookie', { name: nameToDelete }, function(data, status) { 
+                        if (status === 'success') {
+                                console.log(data); 
+                            } else {
+                                console.error('Failed to remove from cookie');
+                            }
+                    });
                 if (newData.length === 0) {
                     $("#sec2").append("<br><div class='card1'><h1><b>You Did Not Select Anything Yet</b></h1></div></div><br>");
                     $("#btnFinishOrder").css('visibility', 'hidden'); 
                     $("#cancel").text("Start Order");
                     $.post('/resetCookie',function(data, status) { 
-                        // sending to server the len of array to reset cookies
+                        if (status === 'success') {
+                            console.log(data); 
+                        } else {
+                            console.error('Failed to reset cookie');
+                        }
+                        
                     });
                 }
             });
