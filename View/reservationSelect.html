@@ -9,11 +9,40 @@
     />
 
     <style>
-        table, th, td {
-          border:1px solid black;
-          font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-          font-size: large;
-        }
+        body {
+				margin: 0;
+				padding: 0;
+				font-family: Arial, sans-serif;
+				background-image: url('/static/backgroundPicture.png');
+				background-size: cover;
+				background-position: center;
+			}
+            s
+            table {
+                 width: 100%;
+                 border-collapse: collapse;
+                 border: 1px solid #200d53;
+                 background-color: #ddbfff;
+                 margin-bottom: 20px;
+                 border-radius: 5px;
+            }
+
+            th, td {
+                padding: 12px;
+                text-align: left;
+                border-bottom: 1px solid #200d53;
+                font-size: 16px;
+            }
+            
+            th {   
+                background-color: #ddbfff;
+            }
+            
+            tr:hover {
+                 background-color: #200d53;
+                 color: #ffdcfa;
+                
+            }
     </style>
         
 
@@ -37,8 +66,8 @@
 </head>
 <body>
     <section class="header">
-        <a href="userMenu.html" class="logo">
-            <i class="fa-solid fa-candy-cane fa-flip-horizontal" style="color: #ffffff;"></i> Candyz
+		<a href="index.html" class="logo">
+            <img src="static/theLogo.png" alt="Candyz Logo">
         </a>
 
         <nav class="navbar">

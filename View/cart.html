@@ -10,11 +10,34 @@
     />
     <script src="https://kit.fontawesome.com/51237677f5.js" crossorigin="anonymous"></script>
     <style>
-        table, th, td {
-          border:1px solid black;
-          font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-          font-size: large;
-        }
+
+         body {
+				margin: 0;
+				padding: 0;
+				font-family: Arial, sans-serif;
+				background-image: url('static/backgroundPicture.png');
+				background-size: cover;
+				background-position: center;
+			}
+
+            table {
+                 width: 100%;
+                 border-collapse: collapse;
+                 border: 1px solid #200d53;
+                 background-color: #ddbfff;
+                 margin-bottom: 20px;
+                 border-radius: 5px;
+            }
+            th, td {
+                padding: 12px;
+                text-align: left;
+                border-bottom: 1px solid #200d53;
+                font-size: 16px;
+            }
+            th {   
+                background-color: #ddbfff;
+            }
+        
     </style>
         
 
@@ -37,8 +60,8 @@
 </head>
 <body>
     <section class="header">
-        <a href="userMenu.html" class="logo">
-            <i class="fa-solid fa-candy-cane fa-flip-horizontal" style="color: #ffffff;"></i> Candyz
+        <a href="index.html" class="logo">
+            <img src="/static/theLogo.png" alt="Candyz Logo">
         </a>
 
         <nav class="navbar">  
@@ -54,7 +77,8 @@
     </section>
     <section style="text-align: center;">
         <form action="/orderDetails" method="get">
-            <button style="visibility: hidden; background-color: aquamarine; border-radius: 5px; border-color:white;	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); font-size: x-large;" id="btnFinishOrder">Place your order</button>
+            <button style="background-color: rgb(23, 0, 65); color: white; border-radius: 5px; border-color: rgb(54, 25, 121); box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); font-size: x-large; padding: 10px 20px;">Place your order</button>
+
         </form>
     </section>
     <!-- footer -->
@@ -113,8 +137,9 @@
                     } 
                 }
                 if(newData.length === 0){
-                    $("#sec2").append("<br><div class='card1'><h1><b>You Did Not Select Anything Yet</b></h1></div></div><br>");
+                    $("#sec2").append("<div class='card1'><h1><b>You Did Not Select Anything Yet</b></h1></div><br>");
                     $("#cancel").text("Start Order");
+
                     
                 }
                 data = newData;
