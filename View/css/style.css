@@ -178,7 +178,6 @@ section {
 }
 
 
-
 #menu-btn {
 	font-size: 2.5rem;
 	cursor: pointer;
@@ -379,7 +378,6 @@ section {
 .footer {
 	background:rgb(255, 187, 255);
 	padding: 0px;
-
 }
 
 .sign form {
@@ -391,7 +389,7 @@ section {
 
 .sign {
 	width: 100%;
-	margin: 15rem 0;
+	
 	z-index: -1;
 
 }

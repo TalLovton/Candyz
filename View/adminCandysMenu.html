@@ -9,11 +9,39 @@
     />
 
     <style>
-        table, th, td {
-          border:1px solid black;
-          font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-          font-size: large;
-        }
+        body {
+				margin: 0;
+				padding: 0;
+				font-family: Arial, sans-serif;
+				background-image: url('/static/backgroundPicture.png');
+				background-size: cover;
+				background-position: center;
+			}
+            
+            table {
+                 width: 100%;
+                 border-collapse: collapse;
+                 border: 1px solid #200d53;
+                 background-color: #ddbfff;
+                 margin-bottom: 20px;
+                 border-radius: 5px;
+            }
+            th, td {
+                padding: 12px;
+                text-align: left;
+                border-bottom: 1px solid #200d53;
+                font-size: 16px;
+            }
+            th {   
+                background-color: #ddbfff;
+            }
+        
+            
+            tr:hover {
+                 background-color: #200d53;
+                 color: #ffdcfa;
+                
+            }
     </style>
         
 
@@ -38,7 +66,7 @@
 <body>
     <section class="header">
         <a href="/adminMenu" class="logo">
-            <i class="fa-solid fa-candy-cane fa-flip-horizontal" style="color: #ffffff;"></i> Candyz
+            <img src="/static/theLogo.png" alt="Candyz Logo">
         </a>
 
         <nav class="navbar">
@@ -66,8 +94,6 @@
                 </tr>
               </table>
             </div>
-            <div id="errorMessages" class="alert" style="display: none; color: red; font-size: x-large; margin-top: 5px; ">
-                alert text</div>
     </section>
     <section class="sign" id="sign">
         <h1 class="heading">Add Candy</h1>
@@ -77,7 +103,7 @@
                     <div class="inputBox">
                         <span>name</span>
                         <input type="text" required name="name"  placeholder="enter name" />
-                        
+                        <div id="nameAlert" class="alert" style="display: none; color: red; font-size: medium;">Please enter a name.</div>
                     </div>
 
                     <div class="inputBox">
@@ -144,18 +170,18 @@
             <div class="box-container">
                 <div class="box">
                 <div class="inputBox">
-                    <span>Candy Name To Update</span>
+                    <span>Ice Cream Name To Update</span>
                     <input type="text" required name="CandyName" placeholder="enter name" />
                 </div>
                 <div class="inputBox">
                     <span>Update -</span>
-                    <select  name="updOption" id="UpdateOptions">
+                    <select name="updOption" id="UpdateOptions">
                         <option value="Choose One">Choose One</option>
                         <option value="quantity">quantity</option>
                         <option value="price">price</option>
                         <option value="url">url</option>
                     </select>
-                    <input type="text" required name="values" placeholder="Enter new value" />
+                    <input type="text" name="values" placeholder="Enter new value" />
                 </div>
             </form>
             <input type="submit" value="Update" class="btn"/>        
@@ -167,7 +193,7 @@
             <div class="box-container">
                 <div class="box">
                 <div class="inputBox">
-                    <span>Candy Name<span>
+                    <span>Ice Cream Name<span>
                     <input type="text" required name="CandyName" placeholder="enter name" />
                 </div>
                 </form>
@@ -190,28 +216,18 @@
 	});
     </script>
     <script>
-        //------------------Fetching data from DB about exist candys------------------ 
-        document.addEventListener("DOMContentLoaded", () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const error = urlParams.get('error');
-            const errorMessages = document.getElementById('errorMessages');
-            
-            if (error && error.trim() !== '') {
-                const errorMessage = JSON.parse(decodeURIComponent(error)).text;
-                errorMessages.textContent = errorMessage;
-                errorMessages.style.display = 'block';
-                setTimeout(() => {
-                    errorMessages.style.display = 'none';
-                }, 2500);
+        document.querySelector('form').addEventListener('submit', function(event) {
+            const nameInput = document.querySelector('input[name="name"]');
+            const nameAlert = document.getElementById('nameAlert');
+    
+            if (!nameInput.value) {
+                nameAlert.style.display = 'block';
+                event.preventDefault(); // Prevent the form from submitting
             } else {
-                if (!window.location.search.includes('error=')) {
-                    errorMessages.style.display = 'none';
-                }
+                nameAlert.style.display = 'none';
             }
         });
     </script>
-
-
     <!-- footer -->
         
 		<section class="footer">
