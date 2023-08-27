@@ -13,9 +13,6 @@ const mongoURI = config.get("mongoURI");
 const User = require("./Backend/models/User");
 const Candy = require("./Backend/models/Candy");
 const Reservation = require("./Backend/models/Reservation");
-const isAuth = require("./Backend/middleware/is-auth");
-const isAdmin = require("./Backend/middleware/is-admin");
-const isGuest = require('./Backend/middleware/is-guest');
 const PORT = 8081;
 const server = http.createServer(app);
 const io = socketio(server)
@@ -50,11 +47,11 @@ const MyName = 'Candyz';
 let userName = 'USER';
 const usersArr = [];
 let ind =0;
-app.get("/chat", isGuest, function(req,res){
+app.get("/chat",  function(req,res){
     res.sendFile(__dirname + "/View/chat.html");
 });
 
-app.get("/chatInner", isGuest, function(req,res){
+app.get("/chatInner",  function(req,res){
     userName = req.query.username;
     usersArr.push(userName);
     res.sendFile(__dirname + "/View/chatInner.html");
@@ -87,15 +84,15 @@ io.on('connection', socket =>{
 
 //-----------------Guests Routes----------------------//
 const indexController = require('./Controllers/indexCtrl.js');
-app.get('/', isGuest, indexController.getIndexPage);
+app.get('/',  indexController.getIndexPage);
 
 //----------sign up---------------------//
 const signUpContoller = require('./Controllers/signUpCtrl.js');
-app.get("/signup",isGuest,signUpContoller.getSignUpPage);
+app.get("/signup",signUpContoller.getSignUpPage);
 app.post('/signup', signUpContoller.setNewUsser);
 //----------sign in---------------------//
 const signInController = require('./Controllers/signInPage.js');
-app.get("/signin",isGuest,signInController.getSignInPage);
+app.get("/signin",signInController.getSignInPage);
 app.post("/signin",signInController.checkUser);
 
 
@@ -104,9 +101,9 @@ app.post("/signin",signInController.checkUser);
 
 //-------------------reservation--------------------------//
 const reservationController = require('./Controllers/reservationCtrl.js');
-app.get("/userMenu",isAuth,reservationController.getUserMenuPage);
+app.get("/userMenu",reservationController.getUserMenuPage);
 //-----------search Candy----------------//
-app.get("/reservationSelect",isAuth,reservationController.getSelectionPage);
+app.get("/reservationSelect",reservationController.getSelectionPage);
 //----------search results and start order---//
 app.post("/resSelect",reservationController.getSearchResPage);
 
@@ -115,13 +112,13 @@ app.get('/getProductQuantity', reservationController.fetchData);
 
 //---------------------selection result in user's cart------------------//
 const cartController = require('./Controllers/cartCtrl.js');
-app.get("/cart",isAuth, cartController.getCart);
+app.get("/cart", cartController.getCart);
 
 //--------cancel current order and back to search options---//
-app.get("/cancelOrder",isAuth,cartController.cancelOrders);
+app.get("/cancelOrder",cartController.cancelOrders);
 
 //------place your order details--------------------------//
-// app.post("/orderDetails",isAuth,cartController.orderDetails);
+// app.post("/orderDetails",cartController.orderDetails);
 
 
 app.get("/orderDetails",cartController.displayOrderDetails);
@@ -259,7 +256,7 @@ app.post("/finishOrder",async(req,res)=>{
 });
 //-----------------------users profile-----------------------------------//
 const profileController = require('./Controllers/profileCtrl.js');
-app.get("/profile",isAuth,profileController.getProfile);
+app.get("/profile",profileController.getProfile);
 
 //--------------------Most Recommended Candy For User from mongodb------//
 app.get("/recommendedCandy",profileController.recommendedProducts);
@@ -329,9 +326,9 @@ app.get("/selectedCandys",async (req,res)=>{
 
 const adminRoutes = require('./Controllers/adminRoutesCtrl.js');
 //------------------------users list-------------------------------//
-app.get("/adminMenu",isAdmin,adminRoutes.getAdminMenu);
+app.get("/adminMenu",adminRoutes.getAdminMenu);
 //------------------------candy admin's options----------------//
-app.get("/adminMenu/Candys",isAdmin,adminRoutes.getAdminCandyzMenu);
+app.get("/adminMenu/Candys",adminRoutes.getAdminCandyzMenu);
 //--------------------------search candy results--------------//
 app.get("/searchResults",adminRoutes.getAdminSearchResults);
 
@@ -346,7 +343,7 @@ app.post("/deleteCandy",adminCandyzController.deleteCandy);
 
 
 //--------------------------Shops admin's Menu----------------//
-app.get("/adminMenu/Shops",isAdmin,adminRoutes.getAdminShopsMenu);
+app.get("/adminMenu/Shops",adminRoutes.getAdminShopsMenu);
 const adminShopsController = require('./Controllers/adminShopsCtrl.js')
 //--------------------------add Shops--------------------------//
 app.post("/addShops",adminShopsController.addShops);
@@ -384,7 +381,7 @@ app.get("/logout", (req,res)=>{
 //-----------------------------profile json--------------------------//
 app.get("/profileInfo",profileController.profileInfo);
 //------------------------------change password----------------------//
-app.get("/changePassword",isAuth,profileController.getChangePwPage);
+app.get("/changePassword",profileController.getChangePwPage);
 app.post("/changePassword",profileController.changePw);
 //------------------------flavors ordered----------------------------//
 
