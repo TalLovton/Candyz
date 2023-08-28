@@ -39,8 +39,6 @@ a {
 	font-size: 17px;
 }
 
-/* Chat Page */
-
 .logo-image {
 	max-width: 50px;
   }
@@ -120,6 +118,7 @@ a {
 	font-size: 2.5rem;
 	font-weight: bolder;
 	color: whitesmoke;
+
 }
 
 .join-header {

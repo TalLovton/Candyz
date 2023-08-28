@@ -9,10 +9,29 @@
     />
 
     <style>
-        table, th, td {
-          border:1px solid black;
-          font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-          font-size: large;
+        body {
+            font-family: 'Dosis', sans-serif;
+        }
+        canvas {
+        position: absolute;
+        }
+        button {
+        margin: 5px 0px;
+        color: white;
+        border: 0px;
+        border-bottom: 3px solid #356f7d;
+        background-color: #4795a7;
+        padding: 5px 10px;
+        cursor: pointer;
+        position: relative;
+        transition: 0.2s ease;
+        top: 0px;
+        font-family: 'Dosis', sans-serif;
+        }
+        button:active {
+        top: 3px;
+        border-bottom: 0px solid #356f7d;
+        transition: 0.2s ease;
         }
     </style>
         
@@ -41,8 +60,8 @@
 </head>
 <body>
     <section class="header">
-        <a href="/adminMenu" class="logo">
-            <i class="fa-solid fa-candy-cane fa-flip-horizontal" style="color: #ffffff;"></i> Candyz
+        <a href="index.html" class="logo">
+            <img src="static/theLogo.png" alt="Candyz Logo">
         </a>
 
         <nav class="navbar">
