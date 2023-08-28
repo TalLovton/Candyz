@@ -77,7 +77,7 @@
     </section>
     <section style="text-align: center;">
         <form action="/orderDetails" method="get">
-            <button style="background-color: rgb(23, 0, 65); color: white; border-radius: 5px; border-color: rgb(54, 25, 121); box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); font-size: x-large; padding: 10px 20px;">Place your order</button>
+            <button id="placeOrderBtn" style="background-color: rgb(23, 0, 65);visibility: hidden; color: white; border-radius: 5px; border-color: rgb(54, 25, 121); box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); font-size: x-large; padding: 10px 20px;">Place your order</button>
 
         </form>
     </section>
@@ -134,12 +134,12 @@
                         `;
                         $("#sec2").append(cardHtml);
                         $("#btnFinishOrder").css('visibility', 'visible');
+                        $("#placeOrderBtn").css('visibility', 'visible');
                     } 
                 }
                 if(newData.length === 0){
                     $("#sec2").append("<br><div class='card1'><h1><b>You Did Not Select Anything Yet</b></h1></div></div><br>");
                     $("#cancel").text("Start Order");
-                    
                 }
                 data = newData;
                
@@ -161,6 +161,7 @@
                             }
                     });
                 if (newData.length === 0) {
+                    $("#placeOrderBtn").css('visibility', 'hidden');
                     $("#sec2").append("<br><div class='card1'><h1><b>You Did Not Select Anything Yet</b></h1></div></div><br>");
                     $("#btnFinishOrder").css('visibility', 'hidden'); 
                     $("#cancel").text("Start Order");
