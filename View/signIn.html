@@ -20,26 +20,12 @@
 		<!-- custom css -->
 		<script src="https://kit.fontawesome.com/51237677f5.js" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="css/style.css" />
-
-		<style>
-			body {
-				margin: 0;
-				padding: 0;
-				font-family: Arial, sans-serif;
-				background-image: url('static/backgroundPicture.png');
-				background-size: cover;
-				background-position: center;
-			}
-	
-		</style>
 	</head>
 	<body>
-
 		<section class="header">
 			<a href="index.html" class="logo">
-				<img src="static/theLogo.png" alt="Candyz Logo">
+				<i class="fa-solid fa-candy-cane fa-flip-horizontal" style="color: #ffffff;"></i> Candyz
 			</a>
-			
 
 			<nav class="navbar">
 				<a href="index.html">home</a>
@@ -75,8 +61,6 @@
 			<script>
 				//------------------Fetching data from DB about exist users 
 				document.addEventListener("DOMContentLoaded", () => {
-					const emailInput = document.getElementById('emailInput');
-					const passwordInput = document.getElementById('passwordInput');
 					const urlParams = new URLSearchParams(window.location.search);
 					const error = urlParams.get('error');
 					const errorMessages = document.getElementById('errorMessages');
@@ -102,8 +86,6 @@
 					const emailAlert = document.getElementById('emailAlert');
 					const passwordAlert = document.getElementById('passwordAlert'); 
 		
-				
-		
 					if (!emailInput.value || !passwordInput.value && !(emailInput.value && passwordInput.value)) {
 						if (!emailInput.value) {
 							emailAlert.style.display = 'block';
@@ -119,7 +101,7 @@
 			</script>
 				
 		</section>
-		
+
 		<!-- footer -->
 
 		<section class="footer">

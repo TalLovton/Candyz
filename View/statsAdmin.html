@@ -9,40 +9,13 @@
 		/>
 
 		<style>
-			body {
-				margin: 0;
-				padding: 0;
-				font-family: Arial, sans-serif;
-				background-image: url('/static/backgroundPicture.png');
-				background-size: cover;
-				background-position: center;
+			table,
+			th,
+			td {
+				border: 1px solid black;
+				font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+				font-size: large;
 			}
-            
-            table {
-                 width: 100%;
-                 border-collapse: collapse;
-                 border: 1px solid #200d53;
-                 background-color: #ddbfff;
-                 margin-bottom: 20px;
-                 border-radius: 5px;
-            }
-
-            th, td {
-                padding: 12px;
-                text-align: left;
-                border-bottom: 1px solid #200d53;
-                font-size: 16px;
-            }
-            
-            th {   
-                background-color: #ddbfff;
-            }
-            
-            tr:hover {
-                 background-color: #200d53;
-                 color: #ffdcfa;
-                
-            }
 		</style>
 
 		<!-- swiper -->
@@ -68,7 +41,7 @@
 	<body>
 		<section class="header">
 			<a href="/adminMenu" class="logo">
-				<img src="/static/theLogo.png" alt="Candyz Logo">
+				<i class="fa-solid fa-candy-cane fa-flip-horizontal" style="color: #ffffff;"></i> Candyz
 			</a>
 
 			<nav class="navbar">
@@ -181,18 +154,21 @@ document.addEventListener("DOMContentLoaded", () => {
     .attr("font-size", '20px')
 }
 
-const dateFormat = d3.timeFormat("%d/%m");
+	const dateFormat = d3.timeFormat("%d/%m");
 
 	function xAxis(g) {
-		g.attr("transform", `translate(0,${height1 - margin1.bottom})`)
+		g.attr("transform", `translate(0, ${height1 - margin1.bottom})`)
 			.call(
 				d3
 					.axisBottom(x1)
-					.tickValues(x1.domain())
+					.ticks(d3.timeWeek.every(1)) // Show tick labels for each week
 					.tickSize(10)
 					.tickFormat((d, i) => dateFormat(new Date(dataGraph2[i]._id))) // Format the date using dateFormat
 			)
-			.attr("font-size", '20px');
+			.attr("font-size", "15px")
+			.attr("font-weight", "bold")
+			.selectAll(".tick text")
+			.attr("dy", "1.5em");
 	}
 	svg1.append("g").call(xAxis);
 	svg1.append("g").call(yAxis);

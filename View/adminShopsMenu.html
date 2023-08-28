@@ -9,40 +9,11 @@
     />
 
     <style>
-         body {
-				margin: 0;
-				padding: 0;
-				font-family: Arial, sans-serif;
-				background-image: url('/static/backgroundPicture.png');
-				background-size: cover;
-				background-position: center;
-			}
-            
-            table {
-                 width: 100%;
-                 border-collapse: collapse;
-                 border: 1px solid #200d53;
-                 background-color: #ddbfff;
-                 margin-bottom: 20px;
-                 border-radius: 5px;
-            }
-
-            th, td {
-                padding: 12px;
-                text-align: left;
-                border-bottom: 1px solid #200d53;
-                font-size: 16px;
-            }
-            
-            th {   
-                background-color: #ddbfff;
-            }
-            
-            tr:hover {
-                 background-color: #200d53;
-                 color: #ffdcfa;
-                
-            }
+        table, th, td {
+          border:1px solid black;
+          font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+          font-size: large;
+        }
     </style>
         
 
@@ -70,7 +41,7 @@
 <body>
     <section class="header">
         <a href="/adminMenu" class="logo">
-            <img src="/static/theLogo.png" alt="Candyz Logo">
+            <i class="fa-solid fa-candy-cane fa-flip-horizontal" style="color: #ffffff;"></i> Candyz
         </a>
 
         <nav class="navbar">
@@ -97,6 +68,8 @@
                 </tr>
               </table>
             </div>
+            <div id="errorMessages" class="alert" style="display: none; color: red; font-size: x-large; margin-top: 5px; ">
+                alert text</div>
     </section>
     <section class="sign" id="sign">
         <h1 class="heading">Add Shop</h1>
@@ -106,7 +79,6 @@
                     <div class="inputBox">
                         <span>Address</span>
                         <input type="text" required name="address" placeholder="enter address" />
-                        <div id="nameAlert" style="display: none; color: red; font-size: medium;">Please enter an address.</div>
                         <span>Latitude</span>
                         <input type="text" required name="lat"  placeholder="enter Latitude" />
                         <span>Longitude</span>
@@ -150,6 +122,42 @@
                 </form>
             <input type="submit" value="Delete" class="btn"/>        
     </section>
+
+    <script>
+        $.get('/showShops',function(data,status){
+		for (let i=0; i< data.length; i++){
+				var row = "<tr>"
+				+"<td>"  + data[i].address + "</td>"
+                +"<td>"  + data[i].latitude + "</td>"
+                +"<td>"  + data[i].longitude + "</td>"
+                +"<td><img style='width:130px'; src='" + data[i].photoURL + "'></td>"
+				+"</tr>";
+				$("#CandyzTable1").append(row);
+			}
+        });
+    </script>
+     <script>
+        //------------------Fetching data from DB about exist candys------------------ 
+        document.addEventListener("DOMContentLoaded", () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const error = urlParams.get('error');
+            const errorMessages = document.getElementById('errorMessages');
+            
+            if (error && error.trim() !== '') {
+                const errorMessage = JSON.parse(decodeURIComponent(error)).text;
+                errorMessages.textContent = errorMessage;
+                errorMessages.style.display = 'block';
+                setTimeout(() => {
+                    errorMessages.style.display = 'none';
+                }, 2500);
+            } else {
+                if (!window.location.search.includes('error=')) {
+                    errorMessages.style.display = 'none';
+                }
+            }
+        });
+    </script>
+
     <!-- footer -->
 
 		<section class="footer">
@@ -182,31 +190,6 @@
 		</section>
 
 		<!-- footer -->
-    <script>
-        $.get('/showShops',function(data,status){
-		for (let i=0; i< data.length; i++){
-				var row = "<tr>"
-				+"<td>"  + data[i].address + "</td>"
-                +"<td>"  + data[i].latitude + "</td>"
-                +"<td>"  + data[i].longitude + "</td>"
-                +"<td><img style='width:130px'; src='" + data[i].photoURL + "'></td>"
-				+"</tr>";
-				$("#CandyzTable1").append(row);
-			}
-        });
-    </script>
-    <script>
-        document.querySelector('form').addEventListener('submit', function(event) {
-            const addressInput = document.querySelector('input[name="address"]');
-            const addressAlert = document.getElementById('addressAlert');
     
-            if (!addressInput.value) {
-                addressAlert.style.display = 'block';
-                event.preventDefault(); // Prevent the form from submitting
-            } else {
-                addressAlert.style.display = 'none';
-            }
-        });
-    </script>
 </body>
 </html>
