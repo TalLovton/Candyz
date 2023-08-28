@@ -79,10 +79,12 @@
 			
 					if (!/^[a-zA-Z\s]*[a-zA-Z][a-zA-Z\s]*$/.test(fullnameInput.value)) {
 						fullnameAlert.style.display = 'block';
+						event.preventDefault();
 						
 					}
 					else if (!fullnameInput.value.includes(' ') || /\d/.test(fullnameInput.value)) {
 						fullnameAlert.style.display = 'block';
+						event.preventDefault();
 					} 
 					else {
 						fullnameAlert.style.display = 'none';
@@ -99,6 +101,7 @@
 						const errorMessage = JSON.parse(decodeURIComponent(error)).text;
 						errorMessages.textContent = errorMessage;
 						errorMessages.style.display = 'block';
+						event.preventDefault();
 						setTimeout(() => {
 								errorMessages.style.display = 'none';
 							}, 2000);
@@ -109,7 +112,7 @@
 					}
 				});
 			</script>
-			
+	
 			<script>
 				//---------------Email alert------------------------
 				document.querySelector('form').addEventListener('submit', function(event) {
@@ -118,6 +121,7 @@
 			
 					if (!emailInput.value.includes("@") || !emailInput.value.includes(".")) {
 						emailAlert.style.display = 'block';
+						event.preventDefault();
 						
 					} else {
 						emailAlert.style.display = 'none';
@@ -130,8 +134,9 @@
 					const passwordInput = document.querySelector('input[name="password"]');
 					const passwordAlert = document.getElementById('passwordAlert');
 			
-					if (passwordInput.value.length < 6 || passwordInput.value.length > 12) {
+					if (passwordInput.value.length === 0 || passwordInput.value.length < 6 || passwordInput.value.length > 12) {
 						passwordAlert.style.display = 'block';
+						event.preventDefault();
 					} else {
 						passwordAlert.style.display = 'none';
 					}

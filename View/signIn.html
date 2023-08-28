@@ -71,6 +71,8 @@
 			<script>
 				//------------------Fetching data from DB about exist users 
 				document.addEventListener("DOMContentLoaded", () => {
+					const emailInput = document.getElementById('emailInput');
+					const passwordInput = document.getElementById('passwordInput');
 					const urlParams = new URLSearchParams(window.location.search);
 					const error = urlParams.get('error');
 					const errorMessages = document.getElementById('errorMessages');
@@ -78,12 +80,16 @@
 						const errorMessage = JSON.parse(decodeURIComponent(error)).text;
 						errorMessages.textContent = errorMessage;
 						errorMessages.style.display = 'block';
+						event.preventDefault();
+
 						setTimeout(() => {
 							errorMessages.style.display = 'none';
 						}, 2000);
 					} else {
 						if (!window.location.search.includes('error=')) {
 							errorMessages.style.display = 'none';
+							event.preventDefault();
+
 						}
 					}
 				});
@@ -96,21 +102,63 @@
 					const emailAlert = document.getElementById('emailAlert');
 					const passwordAlert = document.getElementById('passwordAlert'); 
 		
+					//user validtion check
 					if (!emailInput.value || !passwordInput.value && !(emailInput.value && passwordInput.value)) {
-						if (!emailInput.value) {
+						if(!emailInput.value && !passwordInput.value){ // if input fields are empty.
+							passwordAlert.style.display = 'block';
+							passwordAlert.textContent = 'Please enter Password.'
 							emailAlert.style.display = 'block';
 							emailAlert.textContent = 'Please enter Email.'
+							event.preventDefault();
 						}
-						if (!passwordInput.value && emailInput.value) {
-							passwordAlert.style.display = 'block';
-							passwordAlert.textContent = 'Please enter PW.'
+						else{
+							if (!emailInput.value) { //if email input field is empty
+								emailAlert.style.display = 'block';
+								emailAlert.textContent = 'Please enter Email.'
+								event.preventDefault();
+							}
+							else{
+								emailAlert.style.display = 'none';
+							}
+							if (!passwordInput.value && emailInput.value) { //if password field is empty but email isnt
+								passwordAlert.style.display = 'block';
+								passwordAlert.textContent = 'Please enter Password.'
+								event.preventDefault();
+							}
 						}
 					} 
+					else if(passwordInput.value.length < 6 || passwordInput.value.length > 12){ // if the password is not valid.
+									passwordAlert.style.display = 'block';
+									passwordAlert.textContent = 'Please enter a valid password (6-12 characters).'
+									event.preventDefault();
+								}
+							else{
+								passwordAlert.style.display = 'none';
+							}
 
 				});
 			</script>
-				
-		</section>
+				<script>
+					//---------------Fetching data from DB about exist users------------------------
+					document.addEventListener("DOMContentLoaded", () => {
+						const urlParams = new URLSearchParams(window.location.search);
+						const error = urlParams.get('error');
+						const errorMessages = document.getElementById('errorMessages');
+						if (error) {
+							const errorMessage = JSON.parse(decodeURIComponent(error)).text;
+							errorMessages.textContent = errorMessage;
+							errorMessages.style.display = 'block';
+							event.preventDefault();
+							setTimeout(() => {
+									errorMessages.style.display = 'none';
+								}, 2000);
+						} else {
+							if (!window.location.search.includes('error=')) {
+								errorMessages.style.display = 'none';
+							}
+						}
+					});
+				</script>
 
 		<!-- footer -->
 
