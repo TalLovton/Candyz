@@ -18,5 +18,5 @@ const connectDB = async () => {
     process.exit(1);
   }
 };
-
+//"mongoURI": "mongodb+srv://lovton14:Tal080997@talcluster.idwerjh.mongodb.net/?retryWrites=true&w=majority"
 module.exports = connectDB;

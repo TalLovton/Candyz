@@ -226,12 +226,6 @@ app.post("/finishOrder",async(req,res)=>{
                     doc.save(function(err){
                         if (err) throw err;
                     });
-                }else {
-                    // console.log("9 error")
-                    // doc.listOfOrders.set(name,1);
-                    // doc.save(function(err){
-                    //     if (err) throw err;
-                    // })
                 }
             }
         });
