@@ -13,9 +13,14 @@ async function addCandy(req,res){
 
     let tmpCandy = await Candy.findOne({ name });
     if (tmpCandy){
-        console.log("Candy is already exists");
+        console.log("Candy is already exist");
         const errorResponse = { text: "Candy is already exists" };
         return res.redirect(`/adminMenu/Candys?error=${encodeURIComponent(JSON.stringify(errorResponse))}`); 
+    }
+    else if(quantity < 0 || price <= 0){
+            console.log("problem with quant or price");
+            const errorResponse = { text: "Values are incorrect." };
+            return res.redirect(`/adminMenu/Candys?error=${encodeURIComponent(JSON.stringify(errorResponse))}`); 
     }
 
     tmpCandy = new Candy({
@@ -42,19 +47,36 @@ async function updateCandy(req,res){
         const errorResponse = { text: "Candy is not found" };
         return res.redirect(`/adminMenu/Candys?error=${encodeURIComponent(JSON.stringify(errorResponse))}`);
     }
-    
+
+    const strVal = req.body.values;
     let quantity = "";
     let price = "";
     let photoURL = "";
     let update = null;
     if (option === "quantity"){
         quantity = option;
-        console.log(quantity)
-        update = {$set:{quantity: req.body.values}};
+        if( parseInt(strVal) < 0){
+            console.log("problem with updat quant");
+            const errorResponse = { text: "Values are incorrect." };
+            return res.redirect(`/adminMenu/Candys?error=${encodeURIComponent(JSON.stringify(errorResponse))}`); 
+        }
+        else{
+            console.log(strVal)
+            update = {$set:{quantity: req.body.values}};
+        }
     }
     if (option === "price"){
         price = option;
-        update = {$set:{price: req.body.values}};
+        console.log(updateCandy.price);
+        if(parseInt(strVal) <= 0){
+            console.log("problem with updat price");
+            const errorResponse = { text: "Values are incorrect." };
+            return res.redirect(`/adminMenu/Candys?error=${encodeURIComponent(JSON.stringify(errorResponse))}`); 
+        }
+        else{
+            console.log(strVal)
+            update = {$set:{price: req.body.values}};
+        }
     }
     if (option === "url"){
         photoURL = option;

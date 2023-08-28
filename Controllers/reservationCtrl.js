@@ -25,7 +25,15 @@ async function getSearchResPage(req, res) {
     const quant = order.split('_')[1].trim();
     console.log("quant is: " + quant);
     if(quant > productName.quantity){
-        const errorMessage = "Quant too much";
+        const errorMessage = "Quantity too much.";
+        console.log(errorMessage);
+        setTimeout(() => {
+            return res.redirect("/reservationSelect?options=All&name=&flavor=&quantity=&price=");
+        },1500);
+        return;
+    }
+    else if(quant <= 0){
+        const errorMessage = "Quantity not avaible.";
         console.log(errorMessage);
         setTimeout(() => {
             return res.redirect("/reservationSelect?options=All&name=&flavor=&quantity=&price=");

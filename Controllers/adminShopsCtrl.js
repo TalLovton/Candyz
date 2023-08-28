@@ -13,7 +13,14 @@ async function addShops(req,res){
         console.log("Candys shop already in data")
         const errorResponse = { text: "Candys shop already exist" };
         return res.redirect(`/adminMenu/Shops?error=${encodeURIComponent(JSON.stringify(errorResponse))}`);
-    }else{
+    }
+    else if(latitude <= 0 || longitude <= 0){
+        console.log("long or lat is negative.")
+        const errorResponse = { text: "Values are incorrect." };
+        return res.redirect(`/adminMenu/Shops?error=${encodeURIComponent(JSON.stringify(errorResponse))}`);
+    }
+
+    else{
         tmpShop = new Shop({
             address,
             latitude: latitude || 0,

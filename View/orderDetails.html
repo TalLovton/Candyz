@@ -137,21 +137,30 @@
 		</section>
 
 		<!-- footer -->
-
         <script>
             document.addEventListener("DOMContentLoaded", () => {
                 const expiryDateInput = document.querySelector('input[name="ExpiryDate"]');
+                
                 expiryDateInput.addEventListener("input", (event) => {
                     const input = event.target;
-                    const inputValue = input.value.replace(/\D/g, ""); 
+                    const inputValue = input.value.replace(/[^\d]/g, ""); 
                     
-                    if (expiryDateInput.value.length > 2) {
+                    if (inputValue.length > 2) {
                         const formattedValue = inputValue.slice(0, 2) + "/" + inputValue.slice(2);
                         input.value = formattedValue;
                     }
                 });
+                
+                expiryDateInput.addEventListener("keydown", (event) => {
+                    const key = event.key;
+                    if (!/^\d$/.test(key) && key !== "Backspace" && key !== "Delete") {
+                        event.preventDefault();
+                    }
+                });
             });
         </script>
+        
+        
        <script>
         document.addEventListener("DOMContentLoaded", () => {
             const creditNumInput = document.querySelector('input[name="CreditNum"]');
@@ -163,7 +172,8 @@
                 
                 const formattedValue = inputValue
                     .replace(/\D/g, "") // Remove non-numeric characters
-                    .replace(/(\d{4})(?=\d)/g, "$1 ");
+                    .replace(/(\d{4})(?=\d)/g, "$1 ")
+                    .replace(/(?!^)-/g, "");
                 
                 input.value = formattedValue;
                 input.maxLength = inputValue.length > 16 ? inputValue.length + 3 : 19;
@@ -176,29 +186,27 @@
             });
         });
     </script>
-         <script>
+        <script>
             document.addEventListener("DOMContentLoaded", () => {
                 const idNumberInput = document.querySelector('input[name="IDNumber"]');
                 const cvcNumberInput = document.querySelector('input[name="CVCNumber"]');
                 
-                function formatInput(input, regex) {
-                    const inputValue = input.value.replace(regex, ""); 
+                function formatInput(input) {
+                    const inputValue = input.value.replace(/[^\d]/g, ""); 
                     input.value = inputValue;
                 }
                 
                 idNumberInput.addEventListener("input", () => {
-                    formatInput(idNumberInput, /\D/g);
+                    formatInput(idNumberInput);
                 });
             
-                
                 cvcNumberInput.addEventListener("input", () => {
-                    formatInput(cvcNumberInput, /\D/g);
+                    formatInput(cvcNumberInput);
                 });
-
-                
-              
             });
         </script>
+    
+    
         <script>
                 document.addEventListener("DOMContentLoaded", () => {
                     const alertElement = document.querySelector('.IDalert');

@@ -304,12 +304,17 @@
 			const response = await fetch(`/getProductQuantity?tmpName=${encodedCandyName}`);
             const data = await response.json();
 			
+			
             if (!nameInput.value) {
                 nameAlert.style.display = 'block';
                 
             }
 			else if(nameInput.value.split('_')[1] > data.quantity){
 				nameAlert.textContent = 'You orderd too much.';
+				nameAlert.style.display = 'block';
+			}
+			else if(nameInput.value.split('_')[1] <= 0){
+				nameAlert.textContent = 'Quantity not avaible.';
 				nameAlert.style.display = 'block';
 			}
 			else if(data.error){
