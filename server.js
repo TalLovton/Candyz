@@ -16,6 +16,7 @@ const Reservation = require("./Backend/models/Reservation");
 const PORT = 8081;
 const server = http.createServer(app);
 const io = socketio(server)
+require('dotenv').config();
 let isFlag = true;
 //connect to database
 connectDB();
@@ -411,12 +412,10 @@ app.get("/resPerDate",async(req,res)=>{
     res.json(doc);
 })
 //----------------------------Google Maps-----------------------------//
-app.get("/googleMaps",(req,res)=>{
-    res.sendFile(__dirname + "/View/googleMaps.html");
-})
-app.get("/googleMapsUser",(req,res)=>{
-    res.sendFile(__dirname + "/View/googleMapsUser.html");
-})
+const mapsController = require('./Controllers/mapsCtrl.js')
+app.get('/api/get-google-api-key', mapsController.fetchAPI);
+app.get("/googleMaps",mapsController.getAdminMap);
+app.get("/googleMapsUser",mapsController.getUsersMap);
 //---------------------------all Candyz--------------------------//
 
 
@@ -424,5 +423,3 @@ app.get("/googleMapsUser",(req,res)=>{
 ///////////////////////////////////////////////////////////////////////
 server.listen(PORT,console.log(`port is running on port ${PORT}...`));
 ///////////////////////////////////////////////////////////////////////
-// API_KEY = AIzaSyDP9dYPVf2u0doyObPdfPOYK-ecHUni8-8
-
