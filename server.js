@@ -295,6 +295,7 @@ app.get("/selectedCandys",async (req,res)=>{
     else{arr = req.session.selected.split(",");}
     console.log("selectedCandysCookie " + req.cookies.myCookie);
     console.log("arr is: "+arr)
+    console.log("flag is: "+isFlag)
 
     if (!isFlag) {
         arr = 'nothing yet';

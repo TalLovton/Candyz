@@ -4,6 +4,7 @@ const path = require('path');
 
 function getCart(req, res) {
     let flag = req.session.myData;
+    console.log("Value of flag 1:", flag);
     console.log("the product selection is: " + req.session.selected);
     if(req.cookies.myCookie == undefined){
         console.log("undefimed world")
@@ -11,7 +12,7 @@ function getCart(req, res) {
     }
     else{
         console.log(" not undefimed world")
-        console.log(flag);
+        console.log("Value of flag 2:", flag);
         if(flag == 'false'){
             res.cookie("myCookie",req.cookies.myCookie + ',' + req.session.selected);
         }
