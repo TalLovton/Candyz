@@ -10,6 +10,8 @@
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Dosis&family=Finlandica&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+		<script src="https://kit.fontawesome.com/51237677f5.js" crossorigin="anonymous"></script>
+
 
 		
 		<!-- lightgallery -->
@@ -23,6 +25,7 @@
 	  	/>
 		<!-- custom css -->
 		<link rel="stylesheet" href="css/style.css" />
+		
 		<!----Canvas CSS-->
 		<style>
 			body {
@@ -69,8 +72,6 @@
 			<div id="menu-btn" class="fas fa-bars"></div>
 		</section>
 
-
-
 		<!-- share -->
 		<div class="share-btn-container">
 			<!-- <a href="#" id="facebook-btn" class="facebook-btn">
@@ -88,12 +89,12 @@
 		<!-- about us -->
 		<!----Weather Widget, the Web Service-->
 		<a class="weatherwidget-io" href="https://forecast7.com/en/31d9734d79/rishon-letsiyon/" data-label_1="RISHON LETSIYON" data-label_2="WEATHER" 
-data-theme="blue-mountains" data-basecolor="#feeff9" data-shadow="" data-textcolor="#270059" data-highcolor="#020202" data-lowcolor="#9cadff"
- data-suncolor="#5600c2" data-cloudcolor="#9f5bff" data-cloudfill="" data-raincolor="#0079a6" >RISHON LETSIYON WEATHER</a>
-<script>
-!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';
-fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
-</script>
+		data-theme="blue-mountains" data-basecolor="#feeff9" data-shadow="" data-textcolor="#270059" data-highcolor="#020202" data-lowcolor="#9cadff"
+		data-suncolor="#5600c2" data-cloudcolor="#9f5bff" data-cloudfill="" data-raincolor="#0079a6" >RISHON LETSIYON WEATHER</a>
+		<script>
+		!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';
+		fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+		</script>
 
 	<!-- about us -->
 
@@ -206,11 +207,8 @@ fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
 		<script>
 			let postUrl = encodeURI(document.location.href);
 			let postTitle = encodeURI("Hey, Check out this awesome new Candyz shop: ");
-			// const facebookBtn = document.querySelector(".facebook-btn");
 			const twitterBtn = document.querySelector(".twitter-btn");
 			const whatsappBtn = document.querySelector(".whatsapp-btn");
-			
-			// facebookBtn.setAttribute("href",`https://www.facebook.com/sharer/sharer.php?u=${postUrl}`)
 			twitterBtn.setAttribute("href",`https://twitter.com/share?url=${postUrl}&text=${postTitle}`)
 			whatsappBtn.setAttribute("href",`https://api.whatsapp.com/send?text=${postTitle}${postUrl}`)
 		</script>
