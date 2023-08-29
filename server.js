@@ -131,12 +131,16 @@ app.post("/finishOrder",async(req,res)=>{
     let count =0;
     let sum = 0;
     const selectedArr = req.cookies.myCookie.split(",");
+    if(selectedArr[0] == ' '){
+        console.log("first index is space: " + selectedArr[0]);
+        selectedArr.splice(0, 1);
+    }
+    console.log("selected arr after splice " + selectedArr);
     const email = req.session.email;
     let name = '';
     let quantity = '';
     let tmpContent = '';
     tmpContent = req.session.selected;
-    console.log("tmpContent is: " + tmpContent);
     for (let i =0; i<selectedArr.length; i++){
         const str = selectedArr[i].split("_");
         name = str[0];
@@ -158,10 +162,12 @@ app.post("/finishOrder",async(req,res)=>{
                 count++;
             }
         }else{
-            break;
+            continue;
         }
     }
-    console.log(count)
+    console.log("products number is: " + count)
+    console.log("products are: " + selectedArr)
+    console.log("arr len is: " + selectedArr.length)
     if (count === selectedArr.length){
         const reservationsArr = [];
         const date = new Date().toISOString().slice(0, 10);
