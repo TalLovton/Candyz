@@ -107,8 +107,8 @@ async function deleteCandy(req,res){
 
         res.redirect("/adminMenu/Candys");
     } catch (error) {
-        console.error("Error deleting ice cream:", error);
-        res.status(500).send("Error deleting ice cream");
+        console.error("Error deleting candy:", error);
+        res.status(500).send("Error deleting candy");
     }
 }
 
